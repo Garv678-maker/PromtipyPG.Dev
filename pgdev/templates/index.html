@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="mono muted small">Technology education / Python · Web · AI</p>
+      <h1>Learn to build.<br>Build to learn.</h1>
+      <p class="lead">Master programming, AI, development and real-world technology through structured learning, practical projects and guided practice.</p>
+      <div class="row">
+        <a class="btn solid lg" href="#courses">Start learning</a>
+        <a class="btn ghost lg" href="#courses">Explore courses</a>
+      </div>
+      <ul class="trust">
+        <li>Structured learning</li><li>Hands-on projects</li><li>Beginner friendly</li><li>Career focused</li>
+      </ul>
+    </div>
+    <div class="term" aria-label="Animated terminal showing learn, build, create, deploy">
+      <div class="term-bar"><i></i><i></i><i></i><span class="mono small muted">pg.dev — workspace</span></div>
+      <pre class="mono" id="term" data-lines="_PG.Dev|> learn()|> build()|> create()|> deploy()|✓ shipped"></pre>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-grid">
+    {% for n, l in stats %}<div><b>{{ n }}</b><span>{{ l }}</span></div>{% endfor %}
+  </div>
+  <p class="wrap mono muted small">Placeholder figures — replace in app.py with real data.</p>
+</section>
+
+<section class="sec" id="courses">
+  <div class="wrap">
+    <div class="sec-head"><h2>Featured courses</h2><p class="muted">Pick a course, follow the lessons, finish with a project.</p></div>
+    <div class="grid3">
+      {% for c in courses %}
+      <article class="card course reveal">
+        <div class="card-top"><span class="ico">{{ c.icon[0]|upper }}</span><span class="badge">{{ c.level }}</span></div>
+        <h3>{{ c.title }}</h3>
+        <p class="muted">{{ c.desc }}</p>
+        <p class="mono small muted">{{ c.hours }} h · {{ c.lessons }} lessons</p>
+        <div class="bar" role="progressbar" aria-valuenow="{{ c.progress }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ c.title }} progress"><i data-w="{{ c.progress }}"></i></div>
+        <a class="btn ghost" href="#">View course</a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="paths">
+  <div class="wrap">
+    <div class="sec-head"><h2>Learning paths</h2><p class="muted">Four stages, in order. Each one builds on the last.</p></div>
+    <ol class="road">
+      {% for title, steps in paths %}
+      <li class="reveal">
+        <span class="dot mono">{{ loop.index }}</span>
+        <div class="card"><h3>{{ title }}</h3>
+          <p class="chips-static">{% for s in steps %}<span>{{ s }}</span>{% endfor %}</p></div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="practice">
+  <div class="wrap practice">
+    <div class="sec-head"><h2>Practice as you learn</h2><p class="muted">Short quizzes with instant feedback, and an editor for real problems.</p></div>
+    <div class="grid2">
+      <div class="card quiz" id="quiz">
+        <div class="between"><span class="mono small muted" id="qcount">Question 1 of 2</span><span class="mono small muted" id="qscore">Score 0</span></div>
+        <div class="bar"><i id="qbar" style="width:50%"></i></div>
+        <h3 id="qtext"></h3>
+        <div id="qopts" class="opts" role="radiogroup" aria-label="Answer options"></div>
+        <p id="qfb" class="muted" aria-live="polite"></p>
+        <div class="row"><button class="btn solid" id="qsubmit">Submit</button><button class="btn ghost" id="qnext" hidden>Next question</button></div>
+      </div>
+      <div class="card editor">
+        <div class="between"><span class="mono small">Problem: even or odd</span><span class="badge">Python</span></div>
+        <p class="muted small">Read an integer and print <code>Even</code> or <code>Odd</code>.</p>
+<pre class="mono code"><span class="k">n</span> = <span class="f">int</span>(<span class="f">input</span>())
+<span class="k">if</span> n % 2 == 0:
+    <span class="f">print</span>(<span class="s">"Even"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Odd"</span>)</pre>
+        <div class="io mono small"><div><span class="muted">Input</span><br>7</div><div><span class="muted">Output</span><br id="outbr"><span id="out">—</span></div></div>
+        <div class="row"><button class="btn solid" id="run">Run code</button><button class="btn ghost" id="reset">Reset</button></div>
+        <p class="mono muted small">Demo only: the output is simulated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="projects">
+  <div class="wrap">
+    <div class="sec-head"><h2>Projects</h2><p class="muted">Build things you can put in a portfolio.</p></div>
+    <div class="grid4">
+      {% for t, lvl, stack, d in projects %}
+      <article class="card reveal"><span class="badge">{{ lvl }}</span><h3>{{ t }}</h3><p class="muted">{{ d }}</p>
+        <p class="mono small muted">Stack: {{ stack }}</p><a class="btn ghost" href="#">View project</a></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="assistant">
+  <div class="wrap grid2 center">
+    <div><h2>PG Assistant</h2>
+      <p class="lead">Stuck on a concept or a bug? Ask for an explanation, a hint, a worked example or a short quiz on the lesson you're in.</p>
+      <button class="btn solid lg" id="open-chat">Open assistant</button></div>
+    <div class="card"><p class="mono small muted">You</p><p>Why does my loop never stop?</p>
+      <p class="mono small muted">PG Assistant</p><p>Check that the loop variable changes on every pass. Here is a minimal example…</p></div>
+  </div>
+</section>
+
+<section class="sec alt" id="resources">
+  <div class="wrap">
+    <div class="sec-head"><h2>Resource hub</h2></div>
+    <div class="filters">
+      <label class="sr" for="q">Search resources</label>
+      <input id="q" type="search" placeholder="Search resources">
+      <select id="lvl" aria-label="Difficulty"><option value="">All difficulties</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select>
+    </div>
+    <div class="grid3" id="res">
+      {% for t, cat, tech, lvl in resources %}
+      <a class="card res" href="#" data-t="{{ t|lower }} {{ cat|lower }} {{ tech|lower }}" data-l="{{ lvl }}">
+        <span class="mono small muted">{{ cat }}</span><h3>{{ t }}</h3><span class="mono small muted">{{ tech }} · {{ lvl }}</span></a>
+      {% endfor %}
+    </div>
+    <p id="empty" class="muted" hidden>No resources match. Clear the search or change the difficulty.</p>
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="wrap grid2">
+    <div><h2>About</h2><p class="lead">Make technical education practical, accessible and structured.</p></div>
+    <div class="muted">
+      <p>We teach through short lessons, immediate practice and projects you finish. Courses start from fundamentals and add depth in a clear order, so each topic has a reason to exist.</p>
+      <p>The focus is on programming, web development and AI, designed around the student's next step rather than the length of a syllabus.</p>
+    </div>
+  </div>
+  <div class="wrap grid3 comm">
+    {% for t, d in community %}<div class="card"><h3>{{ t }}</h3><p class="muted">{{ d }}</p></div>{% endfor %}
+  </div>
+</section>
+
+<section class="sec final" id="cta">
+  <div class="wrap">
+    <h2 class="big">Your next skill starts here.</h2>
+    <p class="lead">Learn the fundamentals. Build real projects. Develop skills that compound.</p>
+    <div class="row"><a class="btn solid lg" href="#courses">Start learning</a><a class="btn ghost lg" href="#courses">Explore courses</a></div>
+  </div>
+</section>
+{% endblock %}
